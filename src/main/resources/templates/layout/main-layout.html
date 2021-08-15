@@ -3,11 +3,11 @@
 	th:fragment="main-fragment (title, staticResources, navbar, sidebar, mainContent, footer , script)">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Cryptocurrency Portfolio Management">
+    <meta name="author" content="Mai Thành Duy An">
 	<title th:replace="${title}"></title>
 	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
@@ -18,7 +18,7 @@
 		rel="stylesheet">
 
 	<!-- Custom styles for this template-->
-	<link href="css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
 	<!--/* Other css source files! */-->
 	<th:block th:replace="${staticResources} ?: ~{}"></th:block>
@@ -52,7 +52,7 @@
 			<!-- End of Main Content -->
 
 			<!-- Footer -->
-			<th:block th:insert="~{/admin/fragments/footer :: default}"> </th:block>
+			<th:block th:insert="~{/fragments/footer :: default} ?: ~{}"> </th:block>
 
 			<!-- End of Footer -->
 
@@ -95,7 +95,7 @@
 	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
+	<script src="/js/sb-admin-2.min.js"></script>
 
 	<!-- Other javascript -->
 	<th:block th:insert="${script} ?: ~{}"></th:block>
