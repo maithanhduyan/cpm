@@ -21,7 +21,7 @@ public class MainController {
 	@RequestMapping(value = { "/", "/index.html" }, method = RequestMethod.GET)
 	public String viewHome() {
 		LOG.info("Size: " + cryptocurrencyService.findAll().size());
-		return "index";
+		return "coins";
 	}
 
 	@RequestMapping(value = { "/dashboard.html" }, method = RequestMethod.GET)
@@ -44,9 +44,19 @@ public class MainController {
 	public String viewMyPorfolio() {
 		return "portfolio";
 	}
+	
+	@RequestMapping(value = { "/nupl", "/nupl.html" })
+	public String viewNUPL() {
+		return "nupl";
+	}
+	
+	@RequestMapping(value = { "/stock-to-flow", "/stock-to-flow.html" })
+	public String viewStockToFlow() {
+		return "stock-to-flow";
+	}
 
 	@ModelAttribute("appName")
 	public String getAppName() {
-		return "Crypto Portfolio Management";
+		return "Cryptocurrency Portfolio Management";
 	}
 }

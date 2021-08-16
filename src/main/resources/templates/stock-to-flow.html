@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #static-resources},
+                                                ~{:: #nav},
+                                                ~{:: #sidebar},
+                                                ~{:: #main-content},  
+                                                ~{:: #footer},
+                                                ~{:: #script}
+                                               )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.stock-to-flow}">Stock to Flow</title>
+    <th:block id="static-resources">
+
+    </th:block>
+
+</head>
+
+<body>
+    <div id="sidebar" th:replace="~{fragments/sidebar :: default}"></div>
+    <div id="nav" th:replace="~{/fragments/nav :: default}"></div>
+
+    <!--/*Main Content*/-->
+    <div class="container-fluid" id="main-content">
+        <!-- /*Page Heading*/ -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:text="#{label.stock-to-flow}">Stock to Flow</h1>
+        </div>
+        <!--/*End Page Heading*/-->
+        <!--/*Content Row*/-->
+        <div class="row">
+        	Page Upgrading ..
+        </div>
+        <!--/*End Content Row*/-->
+    </div>
+    <!--/*End Main Content*/-->
+
+    <th:block id="script">
+        <!--/*Page level plugins*/-->
+    </th:block>
+</body>
+
+</html>

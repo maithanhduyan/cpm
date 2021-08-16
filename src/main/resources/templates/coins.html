@@ -12,25 +12,29 @@
 <head>
     <meta charset="UTF-8">
     <title> Coins</title>
-    <th:block id="static-resources">
 
+    <th:block id="static-resources">
+		<!--/* Custom styles for this page */-->
+        <link href="/vendor/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     </th:block>
 
 </head>
 
 <body>
-    <div id="sidebar" th:replace="~{fragments/sidebar :: default}"></div>
-    <div id="nav" th:replace="~{/fragments/nav :: default}"></div>
+    <div id="sidebar" th:replace="~{fragments/sidebar :: default} ?:~{}"></div>
+    <div id="nav" th:replace="~{/fragments/nav :: default} ?:~{}"></div>
 
+
+    <!--/* Main Content */-->
     <div class="container-fluid" id="main-content">
-        <!-- Page Heading -->
+        <!--/* Page Heading */-->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Coins</h1>
+            <h1 class="h3 mb-0 text-gray-800" th:text="#{label.cryptocurrency-prices-by-market-cap}">Coins</h1>
         </div>
-        <!-- Content Row -->
+        <!--/* Content Row*/-->
         <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* Earnings (Monthly) Card Example*/-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
@@ -41,14 +45,14 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$2,036,491,712,613</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300">1.4%</i>
+                                <i class="fas fa-calendar">1.4%</i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* Earnings (Monthly) Card Example*/-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
@@ -66,13 +70,14 @@
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* Earnings (Monthly) Card Example*/-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bitcoin Market Cap Dominance
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bitcoin Market Cap
+                                    Dominance
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
@@ -94,7 +99,7 @@
                 </div>
             </div>
 
-            <!-- Pending Requests Card Example -->
+            <!--/* Pending Requests Card Example*/-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
@@ -113,11 +118,75 @@
             </div>
         </div>
 
-        <!-- Content Row -->
+        <!--/*End Content Row*/-->
+
+        <!--/*DataTales Example */-->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Cryptocurrency Prices by Market Cap</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>1H</th>
+                                <th>24H</th>
+                                <th>7D</th>
+                                <th>24H Volumn</th>
+                                <th>Market Cap</th>
+                                <th>Last 7 Days</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>1H</th>
+                                <th>24H</th>
+                                <th>7D</th>
+                                <th>24H Volumn</th>
+                                <th>Market Cap</th>
+                                <th>Last 7 Days</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011/04/25</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--/*End DataTales Example */-->
     </div>
+    <!--/*End Main Content */-->
 
     <th:block id="script">
-        <!-- Page level plugins -->
+        <!--/* Core plugin JavaScript */-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <script>
+            // Call the dataTables jQuery plugin
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+            });
+        </script>
     </th:block>
 </body>
 
