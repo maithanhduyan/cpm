@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:fragment="main-fragment (title, staticResources, navbar, sidebar, mainContent, footer , script)">
 
 <head>
@@ -8,10 +8,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Cryptocurrency Portfolio Management">
 	<meta name="author" content="Mai Thành Duy An">
+	<link rel="icon" type="image/png" href="/assets/favicon.ico" sizes="32x32">
 	<title th:replace="${title}"></title>
 	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
-	
+
 	<!--/*Custom fonts for this template*/-->
 	<link href="/vendor/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
 	<link
@@ -97,7 +98,7 @@
 	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!--/*Custom scripts for all pages*/-->
-	<script src="/js/sb-admin-2.min.js"></script>
+	<script src="/js/main.js"></script>
 
 	<!--/*Other javascript*/-->
 	<th:block th:insert="${script} ?: ~{}"></th:block>
