@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #static-resources},
+                                                ~{:: #nav},
+                                                ~{:: #sidebar},
+                                                ~{:: #main-content},  
+                                                ~{:: #footer},
+                                                ~{:: #script}
+                                               )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Coins</title>
+
+    <th:block id="static-resources">
+		<!--/* Custom styles for this page */-->
+        <link href="/vendor/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    </th:block>
+
+</head>
+
+<body>
+    <div id="sidebar" th:replace="~{fragments/sidebar :: default} ?:~{}"></div>
+    <div id="nav" th:replace="~{/fragments/nav :: default} ?:~{}"></div>
+
+
+    <!--/* Main Content */-->
+    <div class="container-fluid" id="main-content">
+        <!--/* Page Heading */-->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:text="#{label.cryptocurrency-prices-by-market-cap}">Coins</h1>
+        </div>
+        <!--/* Content Row*/-->
+        <div class="row">
+
+            <!--/* Earnings (Monthly) Card Example*/-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Market Capitalization</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$2,036,491,712,613</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar">1.4%</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--/* Earnings (Monthly) Card Example*/-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    24h Trading Volume</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$135,003,975,852</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--/* Earnings (Monthly) Card Example*/-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bitcoin Market Cap
+                                    Dominance
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">42.74%</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--/* Pending Requests Card Example*/-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    # of Coins</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">8883</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/*End Content Row*/-->
+
+        <!--/*DataTales Example */-->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Cryptocurrency Prices by Market Cap</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>1H</th>
+                                <th>24H</th>
+                                <th>7D</th>
+                                <th>24H Volumn</th>
+                                <th>Market Cap</th>
+                                <th>Last 7 Days</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>1H</th>
+                                <th>24H</th>
+                                <th>7D</th>
+                                <th>24H Volumn</th>
+                                <th>Market Cap</th>
+                                <th>Last 7 Days</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011/04/25</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                                <td>$320,800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--/*End DataTales Example */-->
+    </div>
+    <!--/*End Main Content */-->
+
+    <th:block id="script">
+        <!--/* Core plugin JavaScript */-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <script>
+            // Call the dataTables jQuery plugin
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+            });
+        </script>
+    </th:block>
+</body>
+
+</html>
