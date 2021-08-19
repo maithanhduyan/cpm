@@ -63,7 +63,7 @@
   });
 })(jQuery); // End of use strict
 
-/*!
+/*
  *  Active Navigation Menu
  */
 ("use strict");

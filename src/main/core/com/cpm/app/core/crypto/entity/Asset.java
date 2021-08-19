@@ -11,10 +11,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "CRYPTOCURRENCY")
-public class Cryptocurrency implements Serializable{
+@Table(name = "ASSET")
+public class Asset implements Serializable {
 
-	private static final long serialVersionUID = 4962764425995040985L;
+	private static final long serialVersionUID = -5278102689775924319L;
 
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
@@ -34,17 +34,17 @@ public class Cryptocurrency implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
 
-	public Cryptocurrency(String id, String code, String name, Date createdDate, Date updatedDate) {
+	public Asset() {
+		super();
+	}
+
+	public Asset(String id, String code, String name, Date createdDate, Date updatedDate) {
 		super();
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-	}
-
-	public Cryptocurrency() {
-		super();
 	}
 
 	public String getId() {
@@ -89,7 +89,7 @@ public class Cryptocurrency implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cryptocurrency [id=" + id + ", code=" + code + ", name=" + name + ", createdDate=" + createdDate
+		return "Asset [id=" + id + ", code=" + code + ", name=" + name + ", createdDate=" + createdDate
 				+ ", updatedDate=" + updatedDate + "]";
 	}
 

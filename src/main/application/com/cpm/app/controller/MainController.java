@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cpm.app.services.crypto.AssetService;
 import com.cpm.app.services.crypto.CryptocurrencyService;
 
 @Controller
@@ -17,6 +18,9 @@ public class MainController {
 
 	@Autowired
 	CryptocurrencyService cryptocurrencyService;
+	
+	@Autowired
+	AssetService assetService;
 
 	@RequestMapping(value = { "/", "/index.html" }, method = RequestMethod.GET)
 	public String viewHome() {
@@ -44,12 +48,12 @@ public class MainController {
 	public String viewMyPorfolio() {
 		return "portfolio";
 	}
-	
+
 	@RequestMapping(value = { "/nupl", "/nupl.html" })
 	public String viewNUPL() {
 		return "nupl";
 	}
-	
+
 	@RequestMapping(value = { "/stock-to-flow", "/stock-to-flow.html" })
 	public String viewStockToFlow() {
 		return "stock-to-flow";
