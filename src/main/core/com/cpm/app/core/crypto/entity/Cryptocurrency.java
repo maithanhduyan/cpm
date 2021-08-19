@@ -10,9 +10,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "CRYPTOCURRENCY")
-public class Cryptocurrency implements Serializable{
+@Data
+public class Cryptocurrency implements Serializable {
 
 	private static final long serialVersionUID = 4962764425995040985L;
 
@@ -33,64 +36,5 @@ public class Cryptocurrency implements Serializable{
 	@Column(name = "UPDATED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
-
-	public Cryptocurrency(String id, String code, String name, Date createdDate, Date updatedDate) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.name = name;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
-
-	public Cryptocurrency() {
-		super();
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Cryptocurrency [id=" + id + ", code=" + code + ", name=" + name + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + "]";
-	}
 
 }

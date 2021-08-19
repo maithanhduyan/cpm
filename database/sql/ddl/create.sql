@@ -1,3 +1,49 @@
+-- public.asset_category definition
+
+-- Drop table
+
+-- DROP TABLE public.asset_category;
+
+CREATE TABLE public.asset_category (
+    id varchar(255) NOT NULL,
+    description varchar(255) NULL,
+    "name" varchar(255) NULL,
+    CONSTRAINT asset_category_pkey PRIMARY KEY (id)
+);
+
+
+-- public.asset definition
+
+-- Drop table
+
+-- DROP TABLE public.asset;
+
+CREATE TABLE public.asset (
+    id varchar(255) NOT NULL,
+    code varchar(255) NULL,
+    created_date timestamp NULL,
+    "name" varchar(255) NOT NULL,
+    updated_date timestamp NULL,
+    asset_category_id varchar(255) NULL,
+    CONSTRAINT asset_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_otknfh1h0k4kcduk3i986nyxp UNIQUE (name),
+    CONSTRAINT asset_category_id_fk FOREIGN KEY (asset_category_id) REFERENCES asset_category(id)
+);
+
+
+-- public.asset_holding definition
+
+-- Drop table
+
+-- DROP TABLE public.asset_holding;
+
+CREATE TABLE public.asset_holding (
+    id varchar(255) NOT NULL,
+    "hold" float8 NULL,
+    asset_id varchar(255) NOT NULL,
+    CONSTRAINT asset_holding_pkey PRIMARY KEY (id),
+    CONSTRAINT asset_id_fk FOREIGN KEY (asset_id) REFERENCES asset(id)
+);
 
 
 -- public.asset_price_history definition
@@ -17,13 +63,10 @@ CREATE TABLE public.asset_price_history (
     updated_date timestamp NULL,
     volumn float8 NULL,
     asset_id varchar(255) NOT NULL,
-    CONSTRAINT asset_price_history_pkey PRIMARY KEY (id)
+    CONSTRAINT asset_price_history_pkey PRIMARY KEY (id),
+    CONSTRAINT asset_id_fk FOREIGN KEY (asset_id) REFERENCES asset(id)
 );
 
-
--- public.asset_price_history foreign keys
-
-ALTER TABLE public.asset_price_history ADD CONSTRAINT asset_id_fk FOREIGN KEY (asset_id) REFERENCES asset(id);
 
 -- public.asset_transaction definition
 
@@ -33,21 +76,11 @@ ALTER TABLE public.asset_price_history ADD CONSTRAINT asset_id_fk FOREIGN KEY (a
 
 CREATE TABLE public.asset_transaction (
     id varchar(255) NOT NULL,
-    "cost" float8 NULL,
     created_date timestamp NULL,
-    fee float8 NULL,
     notes varchar(255) NULL,
     price float8 NULL,
-    proceeds float8 NULL,
-    profit float8 NULL,
-    quantity float8 NULL,
-    "type" int4 NULL,
     updated_date timestamp NULL,
-    asset_id varchar(255) NOT NULL,
-    CONSTRAINT asset_transaction_pkey PRIMARY KEY (id)
+    asset_holding_id varchar(255) NULL,
+    CONSTRAINT asset_transaction_pkey PRIMARY KEY (id),
+    CONSTRAINT fk5fah28dxk282ftjjlkp1rt64a FOREIGN KEY (asset_holding_id) REFERENCES asset_holding(id)
 );
-
-
--- public.asset_transaction foreign keys
-
-ALTER TABLE public.asset_transaction ADD CONSTRAINT asset_id_fk FOREIGN KEY (asset_id) REFERENCES asset(id);

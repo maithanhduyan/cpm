@@ -247,40 +247,21 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Bitcoin</td>
-                                <td>BTC</td>
-                                <td>$47,635.43</td>
+                            <tr th:each="assetHolding: ${assetHoldings}">
+                                <td th:text="${assetHolding.id}" />
+                                <td  th:text="${assetHolding.asset.name}">Bitcoin</td>
+                                <td th:text="${assetHolding.asset.code}" >BTC</td>
+                                <td />
                                 <td>0.5%</td>
                                 <td>1.0%</td>
                                 <td>9.2%</td>
                                 <td>$896,589,493,538</td>
                                 <td></td>
-                                <td>+$15,505.94 (16.9%) <br>
+                                <td th:text="${assetHolding.hold}">+$15,505.94 (16.9%) <br>
                                     0.32491781 BTC
                                 </td>
                                 <td>-$135.90 <br>
                                     -0.87%</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Dogecoin</td>
-                                <td>DOGE</td>
-                                <td>$0.337438</td>
-                                <td>0.5%</td>
-                                <td>10.0%</td>
-                                <td>41.2%</td>
-                                <td>$44,230,420,979</td>
-                                <td></td>
-                                <td>+$34,133.86 (37.1%)<br>
-                                    101000.0 DOGE
-                                </td>
-                                <td>+$53,374.80<br>
-                                    +1091.44%
-                                    <a class="dropdown-item" th:title="#{button.add-new-transaction}" href="#"><i class="fas fa-exchange-alt"></i>
-                            </a>
-                                </td>
                             </tr>
 
                         </tbody>

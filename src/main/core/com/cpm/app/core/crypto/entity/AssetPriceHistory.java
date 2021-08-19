@@ -12,10 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import lombok.Data;
+
 import javax.persistence.ForeignKey;
 
 @Entity
 @Table(name = "ASSET_PRICE_HISTORY")
+@Data
 public class AssetPriceHistory implements Serializable {
 
 	private static final long serialVersionUID = -2194190221520221180L;
@@ -54,111 +58,5 @@ public class AssetPriceHistory implements Serializable {
 	@Column(name = "UPDATED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
-
-	public AssetPriceHistory() {
-		super();
-	}
-
-	public AssetPriceHistory(String id, Asset asset, Date date, Double open, Double high, Double low, Double close,
-			Double volumn, Date createdDate, Date updatedDate) {
-		super();
-		this.id = id;
-		this.asset = asset;
-		this.date = date;
-		this.open = open;
-		this.high = high;
-		this.low = low;
-		this.close = close;
-		this.volumn = volumn;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Asset getAsset() {
-		return asset;
-	}
-
-	public void setAsset(Asset asset) {
-		this.asset = asset;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Double getOpen() {
-		return open;
-	}
-
-	public void setOpen(Double open) {
-		this.open = open;
-	}
-
-	public Double getHigh() {
-		return high;
-	}
-
-	public void setHigh(Double high) {
-		this.high = high;
-	}
-
-	public Double getLow() {
-		return low;
-	}
-
-	public void setLow(Double low) {
-		this.low = low;
-	}
-
-	public Double getClose() {
-		return close;
-	}
-
-	public void setClose(Double close) {
-		this.close = close;
-	}
-
-	public Double getVolumn() {
-		return volumn;
-	}
-
-	public void setVolumn(Double volumn) {
-		this.volumn = volumn;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Override
-	public String toString() {
-		return "AssetPriceHistory [id=" + id + ", asset=" + asset + ", date=" + date + ", open=" + open + ", high="
-				+ high + ", low=" + low + ", close=" + close + ", volumn=" + volumn + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + "]";
-	}
 
 }
