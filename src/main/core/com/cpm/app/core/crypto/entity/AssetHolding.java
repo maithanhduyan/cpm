@@ -17,11 +17,15 @@ import javax.persistence.TemporalType;
 
 import com.cpm.app.core.account.entity.Account;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "ASSET_HOLDING")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AssetHolding implements Serializable {
 
 	private static final long serialVersionUID = -9050630320185748931L;
@@ -47,4 +51,6 @@ public class AssetHolding implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_ID")
 	private Account account;
+	
+	
 }

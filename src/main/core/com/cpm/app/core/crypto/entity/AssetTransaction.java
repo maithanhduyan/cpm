@@ -15,9 +15,13 @@ import javax.persistence.TemporalType;
 
 import com.cpm.app.core.account.entity.Account;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ASSET_TRANSACTION")
 public class AssetTransaction implements Serializable {
@@ -26,7 +30,7 @@ public class AssetTransaction implements Serializable {
 
 	@Id
 	@Column(name = "ID")
-	private  String id;
+	private String id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ASSET_HOLDING_ID")
@@ -35,10 +39,13 @@ public class AssetTransaction implements Serializable {
 	@Column(name = "PRICE")
 	private double price;
 
+	@Column(name = "AMOUNT")
+	private double amount;
+
 	@Column(name = "NOTES")
 	private String note;
 
-	@Column(name = "CREATED_DATE")
+	@Column(name = "CREATED_DATE", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 
@@ -46,11 +53,8 @@ public class AssetTransaction implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_ID")
-	private Account account ;
+	private Account account;
 
-
-	
 }

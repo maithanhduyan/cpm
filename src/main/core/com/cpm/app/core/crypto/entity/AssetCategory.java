@@ -22,4 +22,15 @@ public class AssetCategory {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
+	public AssetCategory(String id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
+	public AssetCategory() {
+		super();
+	}
+
 }

@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "ASSET")
-@Data 
+@Data
 @Setter
 @Getter
 public class Asset implements Serializable {
@@ -48,5 +48,19 @@ public class Asset implements Serializable {
 	@Column(name = "UPDATED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
+
+	public Asset() {
+		super();
+	}
+
+	public Asset(String id, String name, String code, AssetCategory assetCategory, Date createdDate, Date updatedDate) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.assetCategory = assetCategory;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
 
 }
