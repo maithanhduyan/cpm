@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.cpm.app.core.account.entity.Account;
+
 import lombok.Data;
 
 @Data
@@ -44,6 +46,10 @@ public class AssetTransaction implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
 
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ACCOUNT_ID")
+	private Account account ;
 
 
 	

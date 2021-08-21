@@ -1,6 +1,7 @@
 package com.cpm.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cpm.app.core.crypto.entity.AssetHolding;
 import com.cpm.app.core.crypto.entity.AssetTransaction;
@@ -94,6 +96,22 @@ public class MainController {
 		return "login";
 	}
 
+	@RequestMapping(value = { "/transactions.html" })
+	public String viewTransactions(@RequestParam Map<String, String> allParams, Model model) {
+
+		if (allParams.containsKey("assetName")) {
+			model.addAttribute("assetName", allParams.get("assetName"));
+		} else {
+			model.addAttribute("assetName", "BTC");
+		}
+		return "transaction";
+	}
+
+	@RequestMapping(value = { "/add-transaction.html" })
+	public String viewAddTransaction() {
+		return "add-transaction";
+	}
+
 	@RequestMapping(value = "/auth/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -103,6 +121,11 @@ public class MainController {
 		LOG.info("LOGOUT");
 		return "redirect:/login?logout"; // You can redirect wherever you want, but generally it's a good practice to
 											// show login screen again.
+	}
+
+	@RequestMapping(value = { "/403" })
+	public String view403() {
+		return "error/403";
 	}
 
 	@ModelAttribute("appName")

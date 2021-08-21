@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #static-resources},
+                                                ~{:: #nav},
+                                                ~{:: #sidebar},
+                                                ~{:: #main-content},  
+                                                ~{:: #footer},
+                                                ~{:: #script}
+                                               )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+
+    <th:block id="static-resources">
+        <!--/* Custom styles for this page */-->
+        <link href="/vendor/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    </th:block>
+
+</head>
+
+<body>
+    <div id="sidebar" th:replace="~{fragments/sidebar :: default}"></div>
+    <div id="nav" th:replace="~{/fragments/nav :: default}"></div>
+
+    <!--/* Page Content */-->
+    <div class="container-fluid" id="main-content">
+        <!--/* Page Heading */-->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <a href="#">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="h3 mb-0 text-gray-800" >[[${assetName}]] &nbsp;[[#{menu.transactions}]]</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i>[[#{button.csv-export}]]</a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i>[[#{button.csv-import}]]</a>
+        </div>
+
+        <!--/* Content Row */-->
+        <div class="row">
+            <!-- HOLDING VALUES -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Holding Value</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOLDINGS -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Holdings</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Cost
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">$4,890.02</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Average Net Cost</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$0.2458</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/* End Content Row */-->
+        <!--/* Content Row */-->
+        <div class="row">
+            <!--/*DataTales */-->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">ASSETS HOLDING LIST</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-plus-square fa-sm fa-fw text-green-800"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#addNewCoinModal"><i
+                                    class="fas fa-download fa-sm text-black-50"></i>
+                                [[#{button.add-new-coin}]]</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Coin</th>
+                                    <th></th>
+                                    <th>Price</th>
+                                    <th>1H</th>
+                                    <th>24H</th>
+                                    <th>7D</th>
+                                    <th>Market Cap</th>
+                                    <th>Last 7 Days</th>
+                                    <th>Holding </th>
+                                    <th>Profit</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Coin</th>
+                                    <th></th>
+                                    <th>Price</th>
+                                    <th>1H</th>
+                                    <th>24H</th>
+                                    <th>7D</th>
+                                    <th>Market Cap</th>
+                                    <th>Last 7 Days</th>
+                                    <th>Holding </th>
+                                    <th>Profit</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td />
+                                    <td>
+
+                                    </td>
+                                    <td>BTC</td>
+                                    <td />
+                                    <td>0.5%</td>
+                                    <td>1.0%</td>
+                                    <td>9.2%</td>
+                                    <td>$896,589,493,538</td>
+                                    <td></td>
+                                    <td>+$15,505.94 (16.9%) <br>
+                                        0.32491781 BTC
+                                    </td>
+                                    <td>-$135.90 <br>
+                                        -0.87%
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--/*End DataTales */-->
+        </div>
+    </div>
+    <!--/*End Page Content */-->
+
+
+
+    <th:block id="script">
+
+        <!--/* Core plugin JavaScript */-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <!--/* Page level custom scripts */-->
+        <script>
+
+        </script>
+    </th:block>
+</body>
+
+</html>

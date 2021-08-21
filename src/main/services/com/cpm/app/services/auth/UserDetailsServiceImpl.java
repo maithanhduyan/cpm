@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		Account account = accountDAO.findAccount(username);
 		
 		Account account = accountRepository.findByUsername(username);
 		System.out.println("Account= " + account);
@@ -33,12 +32,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 					+ username + " was not found in the database");
 		}
 
-		// EMPLOYEE,MANAGER,..
 		String role = account.getUserRole();
 
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-		// ROLE_EMPLOYEE, ROLE_MANAGER
 		GrantedAuthority authority = new SimpleGrantedAuthority(role);
 
 		grantList.add(authority);

@@ -84,3 +84,7 @@ CREATE TABLE public.asset_transaction (
     CONSTRAINT asset_transaction_pkey PRIMARY KEY (id),
     CONSTRAINT fk5fah28dxk282ftjjlkp1rt64a FOREIGN KEY (asset_holding_id) REFERENCES asset_holding(id)
 );
+
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SELECT uuid_generate_v4();

@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.csrf().disable();
 
 		// The pages does not require login
-		http.authorizeRequests().antMatchers("/auth/login", "/auth/logout").permitAll();
+		http.authorizeRequests().antMatchers("/auth/login", "/auth/logout", "/403", "/404").permitAll();
 
 		// Requires login with role ROLE_EMPLOYEE or ROLE_MANAGER.
 		// If not, it will redirect to /admin/login.
@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// .access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')");
 
 		// Pages only for MANAGER
-		http.authorizeRequests().antMatchers("/*").access("hasRole('ROLE_MANAGER')")//
+		http.authorizeRequests().antMatchers("/*").access("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')")//
 				.anyRequest().authenticated();
 
 		// When user login, role XX.
@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/auth/login?error=true")//
 				.usernameParameter("username")//
 				.passwordParameter("password")
-
+				
 				// Configuration for the Logout page.
 				// (After logout, go to home page)
 				.and().logout()//
