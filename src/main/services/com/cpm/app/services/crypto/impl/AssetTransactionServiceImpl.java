@@ -20,4 +20,9 @@ public class AssetTransactionServiceImpl implements AssetTransactionService {
 		return assetTransactionRepository.findAll();
 	}
 
+	@Override
+	public List<AssetTransaction> findAllByAssetAndAccount(String assetCode, String account) {
+		return assetTransactionRepository.findAllByAssetAndAccount(assetCode, account);
+	}
+
 }

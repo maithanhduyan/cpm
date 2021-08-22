@@ -66,17 +66,32 @@ public class ImportDataSampleCommandLineRunner implements CommandLineRunner {
 	}
 
 	private void createAssetHoldingTransactionSample() {
-		Account account = accountRepository.findByUsername("admin");
 		Asset btc = assetRepository.findByCode("BTC");
 		AssetHolding holdBTC = assetHoldingRepository.findByAsset(btc.getId());
 		AssetTransaction holdBTCTransaction1 = new AssetTransaction();
 		holdBTCTransaction1.setId("bb73fdac-506e-4f7f-806c-5c8bcb24780b");
 		holdBTCTransaction1.setAssetHolding(holdBTC);
-		holdBTCTransaction1.setAccount(account);
 		holdBTCTransaction1.setPrice(48567.23);
-		holdBTCTransaction1.setAmount(1.5);
+		holdBTCTransaction1.setQuantity(1.5);
+		holdBTCTransaction1.setFee(0.0000004);
+		holdBTCTransaction1.setCost(200.5);
+		holdBTCTransaction1.setProceeds(2005.3);
 		holdBTCTransaction1.setCreatedDate(new Date());
 		assetTransactionRepository.save(holdBTCTransaction1);
+
+		Asset doge = assetRepository.findByCode("DOGE");
+		AssetHolding holdDOGE = assetHoldingRepository.findByAsset(doge.getId());
+		AssetTransaction holdDOGETransaction = new AssetTransaction();
+		holdDOGETransaction.setId("84300d9b-b554-4b92-adfa-1fde851aae3f");
+		holdDOGETransaction.setAssetHolding(holdDOGE);
+		holdDOGETransaction.setPrice(0.23);
+		holdDOGETransaction.setQuantity(10000.5);
+		holdDOGETransaction.setFee(0.254487);
+		holdDOGETransaction.setCost(holdDOGETransaction.getPrice() * holdDOGETransaction.getQuantity());
+		holdDOGETransaction.setProceeds(
+				holdDOGETransaction.getPrice() * holdDOGETransaction.getQuantity() + holdDOGETransaction.getFee());
+		holdDOGETransaction.setCreatedDate(new Date());
+		assetTransactionRepository.save(holdDOGETransaction);
 
 	}
 

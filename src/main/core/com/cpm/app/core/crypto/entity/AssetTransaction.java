@@ -39,8 +39,17 @@ public class AssetTransaction implements Serializable {
 	@Column(name = "PRICE")
 	private double price;
 
-	@Column(name = "AMOUNT")
-	private double amount;
+	@Column(name = "QUATITY")
+	private double quantity;
+	
+	@Column(name = "FEE",columnDefinition="Decimal(10,8) default '0.00'")
+	private double fee;
+	
+	@Column(name = "COST")
+	private double cost;
+	
+	@Column(name = "PROCEEDS")
+	private double proceeds;
 
 	@Column(name = "NOTES")
 	private String note;
@@ -52,9 +61,5 @@ public class AssetTransaction implements Serializable {
 	@Column(name = "UPDATED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ACCOUNT_ID")
-	private Account account;
 
 }

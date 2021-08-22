@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cpm.app.core.account.entity.Account;
+import com.cpm.app.core.account.model.AccountModel;
+import com.cpm.app.core.account.repository.AccountRepository;
+import com.cpm.app.core.crypto.entity.Asset;
 import com.cpm.app.core.crypto.entity.AssetHolding;
 import com.cpm.app.core.crypto.entity.AssetTransaction;
+import com.cpm.app.services.auth.AccountService;
 import com.cpm.app.services.crypto.AssetCategoryService;
 import com.cpm.app.services.crypto.AssetHoldingService;
 import com.cpm.app.services.crypto.AssetService;
@@ -47,9 +53,25 @@ public class MainController {
 	@Autowired
 	AssetCategoryService assetCategoryService;
 
+	@Autowired
+	AccountService accountService;
+
+	private AccountModel accountModel;
+	Authentication auth;
+
+	public MainController() {
+
+	}
+
 	@RequestMapping(value = { "/", "/index.html" }, method = RequestMethod.GET)
-	public String viewHome() {
-		LOG.info("Size: " + cryptocurrencyService.findAll().size());
+	public String viewHome(Model model) {
+		if (this.auth == null) {
+			LOG.info("Set Account Model");
+			this.accountModel = getCurentAccount();
+		}
+		// LOG.info("Size: " + cryptocurrencyService.findAll().size());
+		List<Asset> assets = assetService.findAll();
+		model.addAttribute("assets", assets);
 		return "coins";
 	}
 
@@ -65,7 +87,9 @@ public class MainController {
 	}
 
 	@RequestMapping(value = { "/coins", "/coins.html" })
-	public String viewcoinlist() {
+	public String viewcoinlist(Model model) {
+		List<Asset> assets = assetService.findAll();
+		model.addAttribute("assets", assets);
 		return "coins";
 	}
 
@@ -98,12 +122,16 @@ public class MainController {
 
 	@RequestMapping(value = { "/transactions.html" })
 	public String viewTransactions(@RequestParam Map<String, String> allParams, Model model) {
-
+		List<AssetTransaction> transactions = null;
 		if (allParams.containsKey("assetName")) {
+			transactions = assetTransactionService.findAllByAssetAndAccount(allParams.get("assetName"), "admin");
 			model.addAttribute("assetName", allParams.get("assetName"));
+
 		} else {
-			model.addAttribute("assetName", "BTC");
+			model.addAttribute("assetName", "?");
 		}
+
+		model.addAttribute("transactions", transactions);
 		return "transaction";
 	}
 
@@ -131,5 +159,17 @@ public class MainController {
 	@ModelAttribute("appName")
 	public String getAppName() {
 		return "Cryptocurrency Portfolio Management";
+	}
+
+	private AccountModel getCurentAccount() {
+		AccountModel accountModel = new AccountModel();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		LOG.info("currentPrincipalName:" + currentPrincipalName);
+		Account account = accountService.findByName(currentPrincipalName);
+		accountModel.setAccount(account);
+		accountModel.setSessionId(authentication.getDetails().toString());
+		return null;
 	}
 }

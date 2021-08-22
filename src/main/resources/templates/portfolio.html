@@ -38,15 +38,15 @@
         <!--/* Content Row */-->
         <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* Total Balance */-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Earnings (Monthly)</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                    Total Balance</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 currency-format">400000</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -56,15 +56,15 @@
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* 24h Portfolio Change */-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Earnings (Annual)</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                    24h Portfolio Change</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 currency-format">15000</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -74,23 +74,17 @@
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!--/* Total Profit Loss */-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Profit Rate
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Profit Loss
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 currency-format">350000</div>
                                     </div>
                                 </div>
                             </div>
@@ -102,14 +96,14 @@
                 </div>
             </div>
 
-            <!-- Pending Requests Card Example -->
+            <!--/* Assets Holding */-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Assets Holding</div>
+                                    # Assets Holding</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                             </div>
                             <div class="col-auto">
@@ -196,6 +190,7 @@
             </div>
         </div>
         <!--/* End Content Row */-->
+        
         <!--/*DataTales Example */-->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -247,8 +242,8 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr th:each="assetHolding: ${assetHoldings}">
-                                <td th:text="${assetHolding.id}" />
+                            <tr th:each="assetHolding,iter: ${assetHoldings}">
+                                <td th:text="${iter.index + 1}" />
                                 <td  th:text="${assetHolding.asset.name}">Bitcoin</td>
                                 <td th:text="${assetHolding.asset.code}" >BTC</td>
                                 <td />
@@ -265,7 +260,7 @@
                                      <a class="dropdown-item" href="/add-transaction.html" title="Add New Transaction">
                                         <i class="fas fa-plus"></i>
                                     </a>
-                                    <a class="dropdown-item" th:href="${'/transactions.html?assetName='+assetHolding.id}" title="See Transactions">
+                                    <a class="dropdown-item" th:href="${'/transactions.html?assetName='+assetHolding.asset.name}" title="See Transactions">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                     </td>
