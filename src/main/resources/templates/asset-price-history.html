@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #static-resources},
+                                                ~{:: #nav},
+                                                ~{:: #sidebar},
+                                                ~{:: #main-content},  
+                                                ~{:: #footer},
+                                                ~{:: #script}
+                                               )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.stock-to-flow}">Asset Price History</title>
+    <th:block id="static-resources">
+        <!--/* Custom styles for this page */-->
+        <link href="/vendor/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    </th:block>
+
+</head>
+
+<body>
+    <div id="sidebar" th:replace="~{fragments/sidebar :: default}"></div>
+    <div id="nav" th:replace="~{/fragments/nav :: default}"></div>
+
+    <!--/*Main Content*/-->
+    <div class="container-fluid" id="main-content">
+        <!-- /*Page Heading*/ -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:text="#{label.asset-price-history}">Asset Price History</h1>
+            <label class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" title="Import CSV File">
+             <i class="fas fa-upload fa-sm text-white-50"></i> [[#{button.csv-import}]]
+                    <input type="file" hidden>
+                    </label>
+        </div>
+        <!--/*End Page Heading*/-->
+        <!--/*Content Row*/-->
+        <div class="row">
+            <!--/*DataTales Example */-->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div>
+
+                        <h6 class="m-0 font-weight-bold text-primary">ASSETS PRICE</h6>
+                        <select>
+                            <option th:each="asset:${assets}" th:value="${asset.code}">[[${asset.name +'
+                                ('+asset.code+')'}]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Open</th>
+                                    <th>High</th>
+                                    <th>Low</th>
+                                    <th>Close</th>
+                                    <th>Adj Close</th>
+                                    <th>Volume</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Open</th>
+                                    <th>High</th>
+                                    <th>Low</th>
+                                    <th>Close</th>
+                                    <th>Adj Close</th>
+                                    <th>Volume</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr th:each="assetPriceHistory:${assetPriceHistories}">
+                                    <td th:text="${assetPriceHistory.date}">Aug 22, 2021</td>
+                                    <td class="currency-format"  th:text="${assetPriceHistory.open}">48,819.96</td>
+                                    <td  class="currency-format"  th:text="${assetPriceHistory.high}">49,316.03</td>
+                                    <td  class="currency-format"  th:text="${assetPriceHistory.low}">48,685.22</td>
+                                    <td  class="currency-format"  th:text="${assetPriceHistory.close}">49,258.68</td>
+                                    <td  class="currency-format"  th:text="${assetPriceHistory.adjClose}">49,258.68</td>
+                                    <td  class="currency-format"  th:text="${assetPriceHistory.volume}">34,815,152,128</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--/*End DataTales Example */-->
+        </div>
+        <!--/*End Content Row*/-->
+    </div>
+    <!--/*End Main Content*/-->
+
+    <th:block id="script">
+        <!--/* Core plugin JavaScript */-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <!--/*Page level plugins*/-->
+        <script>
+            // Call the dataTables jQuery plugin
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+            });
+
+        </script>
+    </th:block>
+</body>
+
+</html>

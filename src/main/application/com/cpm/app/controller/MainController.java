@@ -25,10 +25,12 @@ import com.cpm.app.core.account.model.AccountModel;
 import com.cpm.app.core.account.repository.AccountRepository;
 import com.cpm.app.core.crypto.entity.Asset;
 import com.cpm.app.core.crypto.entity.AssetHolding;
+import com.cpm.app.core.crypto.entity.AssetPriceHistory;
 import com.cpm.app.core.crypto.entity.AssetTransaction;
 import com.cpm.app.services.auth.AccountService;
 import com.cpm.app.services.crypto.AssetCategoryService;
 import com.cpm.app.services.crypto.AssetHoldingService;
+import com.cpm.app.services.crypto.AssetPriceHistoryService;
 import com.cpm.app.services.crypto.AssetService;
 import com.cpm.app.services.crypto.AssetTransactionService;
 import com.cpm.app.services.crypto.CryptocurrencyService;
@@ -55,6 +57,9 @@ public class MainController {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AssetPriceHistoryService assetPriceHistoryService;
 
 	private AccountModel accountModel;
 	Authentication auth;
@@ -86,14 +91,23 @@ public class MainController {
 		return "samples/dashboard2";
 	}
 
-	@RequestMapping(value = { "/coins", "/coins.html" })
+	@RequestMapping(value = { "/coins", "/coins.html" }, method = RequestMethod.GET)
 	public String viewcoinlist(Model model) {
 		List<Asset> assets = assetService.findAll();
 		model.addAttribute("assets", assets);
+		model.addAttribute("coins", assets.size());
+
+		long marketCap = 2036491712613L;
+		model.addAttribute("marketCap", marketCap);
+
+		long _24HVolume = 135003975852L;
+		model.addAttribute("_24HVolume", _24HVolume);
+		double bitcoinMarketCapDominace = 42.74;
+		model.addAttribute("bitcoinMarketCapDominace", bitcoinMarketCapDominace);
 		return "coins";
 	}
 
-	@RequestMapping(value = { "/portfolio", "/portfolio.html" })
+	@RequestMapping(value = { "/portfolio", "/portfolio.html" }, method = RequestMethod.GET)
 	public String viewMyPorfolio(Model model) {
 		List<AssetTransaction> transactions = assetTransactionService.findAll();
 
@@ -101,18 +115,35 @@ public class MainController {
 
 		model.addAttribute("assetHoldings", assetHoldings);
 		model.addAttribute("transactions", transactions);
-		LOG.info("Size: " + transactions.size());
+
+		double totalBalance = 400000.02;
+		model.addAttribute("totalBalance", totalBalance);
+		double _24hPortfolioChange = 15000.02;
+		model.addAttribute("_24hPortfolioChange", _24hPortfolioChange);
+		double totalProfitLoss = 350000.00;
+		model.addAttribute("totalProfitLoss", totalProfitLoss);
+		model.addAttribute("assetsHoldingCount", assetHoldings.size());
+
 		return "portfolio";
 	}
 
-	@RequestMapping(value = { "/nupl", "/nupl.html" })
+	@RequestMapping(value = { "/nupl", "/nupl.html" }, method = RequestMethod.GET)
 	public String viewNUPL() {
 		return "nupl";
 	}
 
-	@RequestMapping(value = { "/stock-to-flow", "/stock-to-flow.html" })
+	@RequestMapping(value = { "/stock-to-flow", "/stock-to-flow.html" }, method = RequestMethod.GET)
 	public String viewStockToFlow() {
 		return "stock-to-flow";
+	}
+
+	@RequestMapping(value = { "/asset-price-history.html" }, method = RequestMethod.GET)
+	public String viewAssetPriceHistory(Model model) {
+		List<Asset> assets = assetService.findAll();
+		List<AssetPriceHistory> assetPriceHistories = assetPriceHistoryService.findAll();
+		model.addAttribute("assets", assets);
+		model.addAttribute("assetPriceHistories", assetPriceHistories);
+		return "asset-price-history";
 	}
 
 	@RequestMapping(value = { "/auth/login", "/auth/login.html" })
@@ -120,7 +151,7 @@ public class MainController {
 		return "login";
 	}
 
-	@RequestMapping(value = { "/transactions.html" })
+	@RequestMapping(value = { "/transactions.html" }, method = RequestMethod.GET)
 	public String viewTransactions(@RequestParam Map<String, String> allParams, Model model) {
 		List<AssetTransaction> transactions = null;
 		if (allParams.containsKey("assetName")) {
@@ -135,7 +166,7 @@ public class MainController {
 		return "transaction";
 	}
 
-	@RequestMapping(value = { "/add-transaction.html" })
+	@RequestMapping(value = { "/add-transaction.html" }, method = RequestMethod.GET)
 	public String viewAddTransaction() {
 		return "add-transaction";
 	}
@@ -151,7 +182,7 @@ public class MainController {
 											// show login screen again.
 	}
 
-	@RequestMapping(value = { "/403" })
+	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
 	public String view403() {
 		return "error/403";
 	}

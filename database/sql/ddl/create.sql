@@ -1,3 +1,6 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SELECT uuid_generate_v4();
+
 -- public.asset_category definition
 
 -- Drop table
@@ -85,6 +88,25 @@ CREATE TABLE public.asset_transaction (
     CONSTRAINT fk5fah28dxk282ftjjlkp1rt64a FOREIGN KEY (asset_holding_id) REFERENCES asset_holding(id)
 );
 
+-- public.asset_price_history definition
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-SELECT uuid_generate_v4();
+-- Drop table
+
+-- DROP TABLE public.asset_price_history;
+
+CREATE TABLE public.asset_price_history (
+    id varchar(255) NOT NULL DEFAULT uuid_generate_v4(),
+    adj_close float8 NULL,
+    "close" float8 NULL,
+    created_date timestamp NULL,
+    "date" date NULL,
+    high float8 NULL,
+    low float8 NULL,
+    "open" float8 NULL,
+    pair varchar(255) NULL,
+    updated_date timestamp NULL,
+    volume float8 NULL,
+    "Adj Close" varchar(1024) NULL,
+    CONSTRAINT asset_price_history_pkey PRIMARY KEY (id)
+);
+
