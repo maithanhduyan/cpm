@@ -39,4 +39,10 @@ public class AssetServiceImpl implements AssetService {
 		return assetRepository.findAll(pageable);
 	}
 
+	@Override
+	public Asset findByName(String name) {
+		// TODO Auto-generated method stub
+		return assetRepository.findByName(name);
+	}
+
 }

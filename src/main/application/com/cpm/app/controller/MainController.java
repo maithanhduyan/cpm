@@ -1,7 +1,9 @@
 package com.cpm.app.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -166,9 +169,61 @@ public class MainController {
 		return "transaction";
 	}
 
+	@RequestMapping(value = { "/add-asset-holding" }, method = RequestMethod.POST)
+	public String doAddAssetHolding(@RequestParam Map<String, String> allParams) {
+		// TODO: add param to add Asset Holding
+		String assetName = allParams.get("asset_name");
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		String quantity = allParams.getOrDefault("quantity", "0.0");
+		double hold = Double.parseDouble(quantity);
+		LOG.info(assetName);
+		LOG.info(allParams.get("_csrf"));
+		// Save to database
+		try {
+			AssetHolding assetHolding = assetHoldingService.fetchByUserNameAndAssetName(username, assetName);
+			if (assetHolding == null) {
+				assetHolding = new AssetHolding();
+				assetHolding.setId(UUID.randomUUID().toString());
+				assetHolding.setAsset(assetService.findByName(assetName));
+				assetHolding.setAccount(accountService.findByName(username));
+				assetHolding.setCreatedDate(new Date());
+				assetHolding.setHold(hold);
+				assetHoldingService.save(assetHolding);
+				LOG.info(assetHolding.getId());
+			} else {
+				LOG.info(assetHolding.getId());
+
+			}
+		} catch (Exception ex) {
+			LOG.info(ex.getMessage());
+		}
+		// display on portfolio
+		return "redirect:/portfolio.html";
+	}
+
 	@RequestMapping(value = { "/add-transaction.html" }, method = RequestMethod.GET)
 	public String viewAddTransaction() {
 		return "add-transaction";
+	}
+
+	@RequestMapping(value = { "/profile.html" }, method = RequestMethod.GET)
+	public String viewProfile() {
+		return "profile";
+	}
+
+	@RequestMapping(value = { "/settings.html" }, method = RequestMethod.GET)
+	public String viewSettings() {
+		return "settings";
+	}
+
+	@RequestMapping(value = { "/activity-log.html" }, method = RequestMethod.GET)
+	public String viewActivityLog() {
+		return "activity-log";
+	}
+	
+	@RequestMapping(value = { "/samples/candlestick-chart.html" }, method = RequestMethod.GET)
+	public String viewCandleStickChartSample() {
+		return "samples/candlestick-chart";
 	}
 
 	@RequestMapping(value = "/auth/logout", method = RequestMethod.GET)
@@ -190,6 +245,12 @@ public class MainController {
 	@ModelAttribute("appName")
 	public String getAppName() {
 		return "Cryptocurrency Portfolio Management";
+	}
+
+	@ModelAttribute("assetList")
+	public List<Asset> getAssetList() {
+		List<Asset> assets = assetService.findAll();
+		return assets;
 	}
 
 	private AccountModel getCurentAccount() {

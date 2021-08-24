@@ -6,4 +6,6 @@ import com.cpm.app.core.crypto.entity.AssetHolding;
 
 public interface AssetHoldingService {
 	List<AssetHolding> findAll();
+	AssetHolding fetchByUserNameAndAssetName(String username, String assetname);
+	AssetHolding save(AssetHolding assetHolding);
 }

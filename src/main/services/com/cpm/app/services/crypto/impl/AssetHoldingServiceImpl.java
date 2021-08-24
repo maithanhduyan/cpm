@@ -24,4 +24,15 @@ public class AssetHoldingServiceImpl implements AssetHoldingService {
 		return assetHoldingRepository.findAll();
 	}
 
+	@Override
+	public AssetHolding fetchByUserNameAndAssetName(String username, String assetname) {
+		return assetHoldingRepository.fetchByUserNameAndAssetName(username, assetname);
+	}
+
+	@Override
+	public AssetHolding save(AssetHolding assetHolding) {
+		// TODO Auto-generated method stub
+		return assetHoldingRepository.save(assetHolding);
+	}
+
 }

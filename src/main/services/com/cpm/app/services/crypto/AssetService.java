@@ -16,4 +16,6 @@ public interface AssetService {
 	public Asset addOrUpdate(Asset asset);
 	
 	public Page<Asset> findPage(Pageable pageable);
+	
+	Asset findByName(String name);
 }

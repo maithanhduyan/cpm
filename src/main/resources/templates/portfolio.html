@@ -285,11 +285,24 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					Select "Logout" below if you are ready to end your current session.
+					<form name="" id="add_asset_holding" method="post" th:action="@{/add-asset-holding}" onsubmit="return validateForm()">
+					  <div class="mb-3">
+					    <label for="exampleInputEmail1" class="form-label">Asset</label>
+						    <select class="form-control" name="asset_name">
+                            	<option th:each="asset:${assetList}" th:value="${asset.name}">[[${asset.name +'
+                                ('+asset.code+')'}]]
+                                </option>
+                        	</select>
+					  </div>
+					  <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Quantity</label>
+					    <input type="number" name="quantity" class="form-control" placeholder="0.1">
+					  </div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="#">Add</a>
+					<button id="add_btn" class="btn btn-primary">Add</button>
 				</div>
 			</div>
 		</div>
@@ -322,7 +335,24 @@
                 $('#dataTable').DataTable();
             });
 
-
+			let form = document.getElementById("add_asset_holding");
+			document.getElementById("add_btn").addEventListener("click", submitForm);
+			console.log(quantityInput);
+			function submitForm() {
+			  console.log(form);
+				let quantityInput = document.body.querySelector("input[name='quantity']");
+				if(quantityInput != ''){
+			  		form.submit();
+				}
+			}
+			
+			function validateForm() {
+			  let x = document.forms["form"]["quantity"].value;
+			  if (x == "") {
+			    alert("Name must be filled out");
+			    return false;
+			  }
+			}
         </script>
     </th:block>
 </body>

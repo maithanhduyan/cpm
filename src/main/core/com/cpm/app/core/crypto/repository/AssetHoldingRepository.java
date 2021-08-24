@@ -10,4 +10,7 @@ public interface AssetHoldingRepository extends JpaRepository<AssetHolding, Stri
 
 	@Query("SELECT ah FROM AssetHolding ah WHERE ah.asset.id=:id")
 	AssetHolding findByAsset(@Param("id") String id);
+	
+	@Query("SELECT ah FROM AssetHolding ah WHERE ah.account.userName=:username AND ah.asset.name=:assetname")
+	AssetHolding fetchByUserNameAndAssetName(@Param("username") String username, @Param("assetname") String assetname);
 }
